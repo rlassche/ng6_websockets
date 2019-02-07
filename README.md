@@ -1,6 +1,6 @@
-# Angular 6.1, rxjs 6.3 and WebSockets 
+# Angular 7.2.4, rxjs 6.4.0 and WebSockets 
 
-I copied the code from ??? (forgotten, sorry) and modified it for Angular6.
+I copied the code from ??? (forgotten, sorry) and modified it for Angular7.
 
 The software uses `ws://echo.websocket.org/` as a demo websocket server.
 
