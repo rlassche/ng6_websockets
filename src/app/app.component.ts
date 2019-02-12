@@ -43,6 +43,6 @@ export class AppComponent {
   sendMsg() {
     console.log('sendMsg: message from client to server: ', this.message);
     this.chatService.messages.next(this.message);
-    this.message.message = '';
+    this.message.message = '...gewist...';
   }
 }
