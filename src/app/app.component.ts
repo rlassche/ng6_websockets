@@ -34,7 +34,7 @@ export class AppComponent {
         //let txt = JSON.parse( obj.text)
         if (msg.type == 'message') {
           console.log("Response from server: ", msg );
-          this.wsResponse += user_msg.author + ' - ' + user_msg.message + '\n'
+          this.wsResponse = user_msg.author + ' - ' + user_msg.message + '\n' + this.wsResponse
         } else {
           console.log("Response: ", msg)
           this.wsResponse += 'huh????' + msg;
