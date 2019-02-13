@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WebsocketService } from './websocket.service';
-import { CHAT_URL } from './config';
+import { CHAT_URL, UserMessage } from './config';
 
 
 @Injectable()
