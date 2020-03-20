@@ -1,6 +1,6 @@
-# Angular 7.2.4, rxjs 6.4.0 and WebSockets 
+# Angular 9.0.7, rxjs 6.5.4 and WebSockets 
 
-I copied the code from ??? (forgotten, sorry) and modified it for Angular7.
+Ported to Angular 9.
 
 The software uses a demo websocket server at `ws://echo.websocket.org/` over http or https.
 
