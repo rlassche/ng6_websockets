@@ -12,13 +12,14 @@ import { CHAT_URL, UserMessage } from './config';
 export class AppComponent {
   title = 'rxjs6';
   chat_url:string;
+  public error_message:string ;
   wsResponse:string = '';
   connectionIsOpen = false;
   constructor(private chatService: ChatService) {
       this.justChat( chatService )
   }
   ngOnInit(){
-    this.chat_url = CHAT_URL;
+    this.chat_url = this.chatService.chatUrl();
   }
 
   justChat(chatService: ChatService) {
@@ -26,15 +27,10 @@ export class AppComponent {
       (msg: MessageEvent) => {
         let user_msg:UserMessage = JSON.parse(msg.data);
 
-        //console.log("Response from server (MessageEvent, column data): ", msg.data);
-        //console.log("MessageEvent type: (MessageEvent, column type): ", msg.type);
-        //console.log("MessageEvent origin: (MessageEvent, column origin): ", msg.origin);
-        //console.log( "UserMessage:", user_msg )
-        //let obj = JSON.parse( msg.data)
-        //let txt = JSON.parse( obj.text)
         if (msg.type == 'message') {
           console.log("Response from server: ", msg );
-          this.wsResponse = user_msg.author + ' - ' + user_msg.message + '\n' + this.wsResponse
+          this.wsResponse = user_msg.author + ' - ' + user_msg.message + '\n' 
+                          + this.wsResponse.substr( 0, 1000)
         } else {
           console.log("Response: ", msg)
           this.wsResponse += 'huh????' + msg;
@@ -46,13 +42,14 @@ export class AppComponent {
         } else {
           console.log("ERROR : ", err)
         }
+        this.error_message = "ERROR with url: " + err.currentTarget['url'] + '. Is websocket server running???'
       },
       (a => { this.connectionIsOpen = false;  this.chatService.reconnect() ; console.log("COMPLETE") }));
   }
 
   public message:UserMessage = {
-    author: 'tutorialedge',
-    message: 'this is a test message from the client'
+    author: 'ROB',
+    message: 'this is a test message from the webclient to websocket'
   }
 
 

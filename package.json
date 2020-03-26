@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+	"https-start": "ng serve --host hp-probook --ssl true --ssl-cert /etc/ssl/certs/hp-probook.cert.pem --ssl-key /etc/ssl/private/hp-probook.key.pem",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
