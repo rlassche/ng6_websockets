@@ -25,16 +25,24 @@ export class AppComponent {
   justChat(chatService: ChatService) {
     chatService.messages.subscribe(
       (msg: MessageEvent) => {
-        let user_msg:UserMessage = JSON.parse(msg.data);
+        let user_msg:UserMessage;
+        try {
 
-        if (msg.type == 'message') {
-          console.log("Response from server: ", msg );
-          this.wsResponse = user_msg.author + ' - ' + user_msg.message + '\n' 
-                          + this.wsResponse.substr( 0, 1000)
-        } else {
-          console.log("Response: ", msg)
-          this.wsResponse += 'huh????' + msg;
+          user_msg = JSON.parse(msg.data);
+          if (msg.type == 'message') {
+            console.log("Response from server: ", msg );
+            this.wsResponse = user_msg.author + ' - ' + user_msg.message + '\n' 
+                            + this.wsResponse.substr( 0, 1000)
+          } else {
+            console.log("Response: ", msg)
+            this.wsResponse += 'huh????' + msg;
+          }
+        } catch( e ) {
+          console.error( "NOT JSON: ", msg.data )
+          this.wsResponse = msg.data + '\n' 
+                            + this.wsResponse.substr( 0, 1000)
         }
+        
       },
       (err: Event) => {
         if (err.type == 'error') {

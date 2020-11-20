@@ -31,12 +31,10 @@ export class ChatService {
     let wsEndpointName = '/echo'
     if( location.protocol == 'http:') {
         protocol = 'ws:'
-        // Always use port 3001
-        //port = 3000;
-
     }
     this.chat_url = protocol + '//' + hostname + ':'+port + wsEndpointName;
-    this.chat_url = "wss://www.mijn-hobbies.nl:3001/echo"
+    //this.chat_url = "wss://www.mijn-hobbies.nl:3001/echo"
+    this.chat_url = "ws://localhost:5000/ws"
     console.log( "calc. chat_url: ", this.chat_url)
     return this.chat_url;
   }
