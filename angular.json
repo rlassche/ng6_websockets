@@ -127,6 +127,7 @@
   "cli": {
     "warnings": {
       "typescriptMismatch": false
-    }
+    },
+    "analytics": "c1385a2d-7d93-4037-961e-cccd9a449708"
   }
 }
