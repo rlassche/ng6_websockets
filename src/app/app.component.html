@@ -2,8 +2,6 @@
 
   <h1> Angular WebSockets</h1>
 
-  chat url: {{chat_url}}
-
   <div class="btn-danger" *ngIf="error_message"> {{error_message}}</div>
   <form #wsForm="ngForm" (ngSubmit)="sendMsg()">
     <div class="form-group">

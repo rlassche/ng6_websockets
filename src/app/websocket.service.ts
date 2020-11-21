@@ -1,55 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer, Subject } from 'rxjs';
-import { UserMessage } from './config';
+import {  Subject } from 'rxjs';
+import ReconnectingWebSocket from 'reconnecting-websocket'
+import { environment } from '../environments/environment';
+
+export const WS_ENDPOINT = environment.wsEndpoint;
 
 @Injectable()
 export class WebsocketService {
-  constructor() { }
-
-  private subject: Subject<MessageEvent>;
-
-  public connect(url:string): Subject<MessageEvent> {
-    if (!this.subject) {
-      this.subject = this.create(url);
-      console.log("Successfully connected to: " + url);
-    }
-    return this.subject;
+  private subject;
+  private myWebSocket;
+  private options = {
+    minReconnectionDelay: 1000,
+    maxEnqueuedMessages: 10,
+    maxRetries: 3,
+    debug: false
   }
 
-  private create(url:string): Subject<MessageEvent> {
-    console.log( 'websocket.service: create: '+url)
-    let ws: WebSocket = new WebSocket(url);
+  connect() {
+    if( this.subject != null ) {
+      return this.subject;
+    }
 
-    //
-    //      OBSERVABLE
-    //
-    let observable = Observable.create((obs: Observer<MessageEvent>) => {
-      console.log('websocket.service: Observable.create');
-      ws.onmessage = obs.next.bind(obs);
-      ws.onerror = obs.error.bind(obs);
-      ws.onclose = obs.complete.bind(obs);
-      return ws.close.bind(ws);
+    this.subject = new Subject<any>( ) ;
+
+    this.myWebSocket = new ReconnectingWebSocket( WS_ENDPOINT, [], this.options )
+    this.myWebSocket.addEventListener( 'open', () => {
+      console.log( 'event listener open')
+    })
+    this.myWebSocket.addEventListener( 'message', (m) => {
+      console.log( 'event listener message', m.data)
+      this.subject.next( m.data );
+    })
+    this.myWebSocket.addEventListener( 'error', (e) => {
+      console.log( 'event listener error', e)
+    })
+    this.myWebSocket.addEventListener( 'close', (e) => {
+      console.log( 'event listener close', e)
     })
 
-    //
-    //      OBSERVER OBJECT - A handler for receiving observable notifications
-    //
-    let observer = {
-      next: (data: UserMessage) => {
-        if (ws.readyState === WebSocket.OPEN) {
-          console.log('observer send: data: ', data);
-          ws.send(JSON.stringify(data));
-        } else {
-          console.log( "Websocket is NOT open!!")
-          this.create( url )
-        }
-      },
-      error: (err) => {
-        console.log( 'observer: error: ', err)
-      }
-    }
-    // A Subject is an Observer AND observable
-    return Subject.create(observer, observable);
+    return this.subject;
   }
-
+ 
+  sendMsg(msg) {
+    this.myWebSocket.send( JSON.stringify(msg) );
+  }
 }

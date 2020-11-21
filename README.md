@@ -1,6 +1,6 @@
-# Angular 9.0.7, rxjs 6.5.4 and WebSockets 
+# Angular 11.x, rxjs 6.6.x and reconnecting WebSockets
 
-Ported to Angular 9.
+Ported to Angular 11.
 
 The software uses a demo websocket server at `ws://echo.websocket.org/` over http or https.
 
@@ -30,9 +30,8 @@ A subject is an observable and an observer at the same time and comes with rxjs.
 
 * File `config.ts`:
 
-* Define the websocket endpoint: 
+* Define the websocket endpoint in environment.ts 
  
-`export const CHAT_URL = 'wss://hp-probook:9443/echo/'`
 
 * User Message
  
@@ -42,11 +41,6 @@ export interface UserMessage {
     message: string
 }
 ```
-
-# Alternative angular websocket
-
-Use  `https://github.com/afrad/angular2-websocket`. Works really fine with Angular 6!
-
 
 # Perl
 
