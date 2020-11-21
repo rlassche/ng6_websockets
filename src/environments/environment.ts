@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  wsEndpoint: "ws://localhost:5000/ws"
+  wsEndpoint: "ws://echo.websocket.org"
 };
 
 /*
