@@ -24,7 +24,7 @@
     "bcrypt": "^5.0.0",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.4",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "ngx-bootstrap": "^4.1.1",
     "reconnecting-websocket": "^4.4.0",
     "rxjs": "^6.5.4",
